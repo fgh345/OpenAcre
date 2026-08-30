@@ -1,8 +1,8 @@
 # Authors
 
-The following people have contributed to OpenAcre:
+Hourbloom is derived from [OpenAcre](https://github.com/OpenAcre-Project/OpenAcre). The following upstream contributors are retained in the project history:
 
-### Main Contributors
+### Upstream Contributors
 
 - [Jovi Koikkara](https://github.com/YouFoundJK)
 

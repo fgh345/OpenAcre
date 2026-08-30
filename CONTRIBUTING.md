@@ -1,13 +1,13 @@
-# Contributing to OpenAcre
+# Contributing to Hourbloom
 
-Thank you for your interest in contributing to **OpenAcre**! We welcome contributions of all forms, from bug reports to new features. 
+Thank you for your interest in contributing to **Hourbloom**! We welcome contributions of all forms, from bug reports to new features.
 
-Documentation is available at: [https://openacre-project.github.io/OpenAcre/](https://openacre-project.github.io/OpenAcre/)
+Documentation is available in [docs/index.md](docs/index.md).
 
 ## How to Contribute
 
 ### 1. Reporting Bugs
-- Use the [GitHub Issue Tracker](https://github.com/OpenAcre-Project/OpenAcre/issues).
+- Use the [GitHub Issue Tracker](https://github.com/fgh345/Hourbloom/issues).
 - Provide a clear description and steps to reproduce.
 
 ### 2. Feature Requests

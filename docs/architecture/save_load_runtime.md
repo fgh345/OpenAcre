@@ -1,6 +1,6 @@
 # Save/Load Runtime | [Home](../index.md)
 
-This page is the source of truth for OpenAcre save/load behavior.
+This page is the source of truth for Hourbloom save/load behavior.
 
 ---
 

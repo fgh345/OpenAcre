@@ -1,14 +1,14 @@
 <div align="center">
 
-<img src="docs/Assets/OpenAcre-Cover-lowres.png" alt="OpenAcre Cover: The best open-source farming simulator for Godot 4" width="800"/>
+<img src="icon.svg" alt="Hourbloom sunflower icon" width="160"/>
 
-<!-- Keywords: Open-source farming simulator, Godot 4 farming engine, hardcore survival simulation, realistic agriculture simulator, systemic game design, UESS, data-driven farming, OpenAcre Project -->
+<!-- Keywords: Hourbloom, open-source farming simulator, Godot 4, survival simulation, systemic game design -->
 
-# OpenAcre 
+# Hourbloom
 **A Hardcore, Open-Source Agricultural Life Simulator built in Godot 4.**
 
 [![Version](https://img.shields.io/badge/Version-v_1.2-green)](#)
-[![Docs](https://img.shields.io/badge/Documentation-v_1.2-blue)](https://openacre-project.github.io/OpenAcre/)
+[![Docs](https://img.shields.io/badge/Documentation-v_1.2-blue)](https://fgh345.github.io/Hourbloom/)
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](LICENSE)
 [![License: CC BY-SA 4.0](https://img.shields.io/badge/License-CC%20BY--SA%204.0-lightgrey.svg)](Assets/README.md)
 
@@ -18,7 +18,7 @@
 
 ## 🌾 About the Project
 
-**OpenAcre** (formerly *OpenFarm Survival*) is not your traditional, cozy farming game. Here, survival is the ultimate metric. We are building a deeply moddable, system-first engine where players must manage personal needs (hunger, energy), maintain complex machinery, and build functional infrastructure. If your tractor breaks down, your crops die. If your crops die, you starve. 
+**Hourbloom** is an open-source agricultural life simulator derived from [OpenAcre](https://github.com/OpenAcre-Project/OpenAcre). Here, survival is the ultimate metric. The game is built around a moddable, system-first engine where players manage personal needs, maintain complex machinery, and build functional infrastructure. If your tractor breaks down, your crops die. If your crops die, you starve.
 
 Our goal is to push the boundaries of open-source life simulation, seamlessly blending minute-to-minute manual labor with long-term infrastructure strategy.
 
@@ -34,9 +34,9 @@ Our goal is to push the boundaries of open-source life simulation, seamlessly bl
 
 > [!WARNING]  
 > **Regarding ADD-ONS:**
-> OpenAcre targets **Godot 4.7** and uses **Terrain3D 1.0.2**. Add-on source and project-specific files are tracked in this repository, while native libraries are not. Godot 4.7's built-in Jolt integration is used; do not install the legacy `godot-jolt` GDExtension.
+> Hourbloom targets **Godot 4.7** and uses **Terrain3D 1.0.2**. Add-on source and project-specific files are tracked in this repository, while native libraries are not. Godot 4.7's built-in Jolt integration is used; do not install the legacy `godot-jolt` GDExtension.
 
-**To run OpenAcre locally:**
+**To run Hourbloom locally:**
 1. Clone this repository and install an official **Godot 4.7.x** build.
 2. Download the [Terrain3D 1.0.2 release](https://github.com/TokisanGames/Terrain3D/releases/tag/v1.0.2-stable).
 3. Copy the release's `addons/terrain_3d/bin/` directory into the existing `addons/terrain_3d/` directory. Do not replace the project-specific add-on files.
@@ -44,22 +44,22 @@ Our goal is to push the boundaries of open-source life simulation, seamlessly bl
 
 ---
 
-## 🗺️ Development Roadmap
+## 🗺️ Upstream Project
 
-> **Track our live progress!** Check out our official [OpenAcre GitHub Project Board](https://github.com/orgs/OpenAcre-Project/projects/1) to vote on upcoming features, grab open issues, and see exactly what we are building today.
+Hourbloom currently follows OpenAcre's simulation architecture. Upstream changes can be reviewed on the [OpenAcre project board](https://github.com/orgs/OpenAcre-Project/projects/1) and selectively merged into this fork.
 
 ---
 
 ## 🏛️ Project Architecture & Docs
-Because OpenAcre is built as an extensible simulation engine, strict architectural guidelines are enforced. 
-* Please see our [Architecture Guidelines](https://openacre-project.github.io/OpenAcre/architecture/overview/) for details on script layouts, avoiding Autoload clutter, and UESS implementation.
+Because Hourbloom is built as an extensible simulation engine, strict architectural guidelines are enforced.
+* Please see the [Architecture Guidelines](docs/architecture/overview.md) for details on script layouts, avoiding Autoload clutter, and UESS implementation.
 * Want to help build the engine? Read our [CONTRIBUTING.md](CONTRIBUTING.md) before submitting a Pull Request!
 
 ---
 
 ## ⚖️ Licensing
 
-To ensure OpenAcre remains open-source forever, we utilize a dual-license strategy. By contributing to or modifying this project, you agree to the following:
+Hourbloom is derived from OpenAcre and retains its open-source licensing requirements:
 
 | Project Component | License | What It Guarantees |
 | :--- | :--- | :--- |
@@ -69,13 +69,9 @@ To ensure OpenAcre remains open-source forever, we utilize a dual-license strate
 
 ---
 
-## 💖 Support OpenAcre
+## 💖 Credits
 
-OpenAcre is, and always will be, completely free and open-source. However, building a massive systemic engine takes thousands of hours and incurs server and infrastructure costs.
-
-If you believe in the vision of a truly hardcore, open-source farming cum survival simulator, consider supporting the core architecture:
-
-[![Support OpenAcre on Ko-Fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/youfoundjk)
+Hourbloom is based on [OpenAcre](https://github.com/OpenAcre-Project/OpenAcre), created by Jovi Koikkara and its contributors. See [AUTHORS.md](AUTHORS.md) for attribution.
 
 ---
 ### Key Asset Credits: 

@@ -1,6 +1,6 @@
 # 🕐 Day/Night Cycle | [Home](../index.md)
 
-The Day/Night cycle in OpenAcre is split into a logical simulation (tracking time) and a visual controller (animating light and environment).
+The Day/Night cycle in Hourbloom is split into a logical simulation (tracking time) and a visual controller (animating light and environment).
 
 ---
 

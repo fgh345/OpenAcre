@@ -1,8 +1,8 @@
-site_name: OpenAcre Documentation
-site_url: https://openacre-project.github.io/OpenAcre/
-site_description: OpenAcre is a hardcore, open-source farming and survival simulator built in Godot 4. The best realistic agricultural engine for systemic game design.
-site_author: The OpenAcre Project
-copyright: Copyright &copy; 2026 The OpenAcre Project
+site_name: Hourbloom Documentation
+site_url: https://fgh345.github.io/Hourbloom/
+site_description: Hourbloom is an open-source farming and survival simulator built in Godot 4.
+site_author: Hourbloom Contributors
+copyright: Hourbloom is derived from the OpenAcre project
 nav:
   - Home: index.md
   - Architecture:

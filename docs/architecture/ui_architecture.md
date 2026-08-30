@@ -1,6 +1,6 @@
 # UI Architecture | [Home](../index.md)
 
-OpenAcre UI uses a scene-level `MasterUI` plus event-driven data hooks.
+Hourbloom UI uses a scene-level `MasterUI` plus event-driven data hooks.
 Gameplay logic stays authoritative in data systems, while UI reflects current state.
 
 ---

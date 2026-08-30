@@ -1,6 +1,6 @@
 # Core Runtime Flow | [Home](../index.md)
 
-OpenAcre runtime is split into authoritative data state and streamed visual state.
+Hourbloom runtime is split into authoritative data state and streamed visual state.
 The logic side remains valid even when view nodes are unloaded.
 
 ---

@@ -7,7 +7,7 @@ This project tracks add-on source and configuration files, but omits native bina
 ## 🛠️ GEVP (Godot Easy Vehicle Physics)
 
 !!! abstract "Core Modifications"
-    The base GEVP plugin was patched to support the **OpenAcre** deterministic steering and state persistence architecture.
+    The base GEVP plugin was patched to support the **Hourbloom** deterministic steering and state persistence architecture.
 
 - **`vehicle.gd` Patch**: Exposed internal torque and suspension parameters to the `Vehicle3D` wrapper.
 - **Steering Fix**: Added a safety clamp to the steering speed correction denominator in `process_steering()` to prevent division by zero when the vehicle is stationary.
@@ -24,4 +24,4 @@ This project tracks add-on source and configuration files, but omits native bina
     `SoilLayerService` batches Terrain3D control-map writes and performs one final GPU map update after large field-generation operations. This integration does not require a patched Terrain3D native library.
 
 !!! warning "Project-specific Importer"
-    Preserve `addons/terrain_3d/tools/importer.tscn` when upgrading Terrain3D. It references OpenAcre's terrain assets and import settings.
+    Preserve `addons/terrain_3d/tools/importer.tscn` when upgrading Terrain3D. It references Hourbloom's terrain assets and import settings.
