@@ -1,6 +1,6 @@
 # 📝 Addon Patch Notes | [Home](../index.md)
 
-This project does not git-track addon sources, so this file records local addon modifications for reproducibility and community sharing.
+This project tracks add-on source and configuration files, but omits native binaries. This file records project-specific modifications that must be preserved when an add-on is upgraded.
 
 ---
 
@@ -20,5 +20,8 @@ This project does not git-track addon sources, so this file records local addon 
 
 ## 🎨 Terrain3D
 
-!!! success "Performance Patch"
-    Added a `_batch_painting` flag to the internal storage API to allow for localized suppression of GPU updates during large-scale field generation.
+!!! success "Runtime Painting Integration"
+    `SoilLayerService` batches Terrain3D control-map writes and performs one final GPU map update after large field-generation operations. This integration does not require a patched Terrain3D native library.
+
+!!! warning "Project-specific Importer"
+    Preserve `addons/terrain_3d/tools/importer.tscn` when upgrading Terrain3D. It references OpenAcre's terrain assets and import settings.

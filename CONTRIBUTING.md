@@ -21,10 +21,10 @@ Documentation is available at: [https://openacre-project.github.io/OpenAcre/](ht
 
 ## Development Setup
 
-1.  Clone the repository.
-2.  Install [Godot 4](https://godotengine.org/).
-3.  Add the relevant addons (some addon files are overwritten by the project, hence the best strategy is to first install the addons and then overwrite the project files with the addon files)
-4.  Restart Godot.
+1. Clone the repository.
+2. Install an official [Godot 4.7.x](https://godotengine.org/) build.
+3. Download [Terrain3D 1.0.2](https://github.com/TokisanGames/Terrain3D/releases/tag/v1.0.2-stable) and copy only its `addons/terrain_3d/bin/` directory into the repository's existing Terrain3D directory.
+4. Open the project and wait for the initial import to finish. The project uses Godot's built-in Jolt integration, so the legacy `godot-jolt` GDExtension must not be installed.
 
 ## Coding Style
 - Follow the official [GDScript style guide](https://docs.godotengine.org/en/stable/tutorials/scripting/gdscript/gdscript_styleguide.html).

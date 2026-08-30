@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://chuvbq7gbng47" path="res://Assets/TerrainAssets/Data/textures/gravel_albedo_height.png" id="9_heinc"]
 [ext_resource type="Texture2D" uid="uid://dm6dbvedjrbvb" path="res://Assets/TerrainAssets/Data/textures/gravel_normal_roughness.png" id="10_7weji"]
 [ext_resource type="Texture2D" uid="uid://dlqf44bjxqvf3" path="res://Assets/TerrainAssets/Data/textures/forest_albedo_height.png" id="11_5icrm"]
+[ext_resource type="Texture2D" uid="uid://cth4sbwqg87jv" path="res://Assets/TerrainAssets/Data/textures/forest_normal_roughness.png" id="11_forest_normal"]
 [ext_resource type="Texture2D" uid="uid://dobef47is21v" path="res://Assets/TerrainAssets/Data/textures/asphalt_albedo_height.png" id="12_o7uno"]
 [ext_resource type="Texture2D" uid="uid://2iuqpgotinl4" path="res://Assets/TerrainAssets/Data/textures/concrete_albedo_height.png" id="13_dqcu4"]
 [ext_resource type="Texture2D" uid="uid://ctpc2r8j1g6xa" path="res://Assets/TerrainAssets/Data/textures/asphalt_normal_roughness.png" id="13_iqvvf"]
@@ -61,7 +62,7 @@ normal_texture = ExtResource("10_7weji")
 name = "Forest"
 id = 5
 albedo_texture = ExtResource("11_5icrm")
-normal_texture = ExtResource("11_5icrm")
+normal_texture = ExtResource("11_forest_normal")
 
 [sub_resource type="Terrain3DTextureAsset" id="Terrain3DTextureAsset_dqcu4"]
 name = "Plow"

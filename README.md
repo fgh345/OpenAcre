@@ -34,13 +34,13 @@ Our goal is to push the boundaries of open-source life simulation, seamlessly bl
 
 > [!WARNING]  
 > **Regarding ADD-ONS:**
-> This project uses multiple community add-ons, and some of the source files have been modified to work with OpenAcre. These files are located in `addons/` folder and should **overwrite** the original files.
+> OpenAcre targets **Godot 4.7** and uses **Terrain3D 1.0.2**. Add-on source and project-specific files are tracked in this repository, while native libraries are not. Godot 4.7's built-in Jolt integration is used; do not install the legacy `godot-jolt` GDExtension.
 
 **To run OpenAcre locally:**
-1. Clone this repository and open the project in **Godot 4**.
-2. Add the relevant addons (`addons/` folder) to your project via Godot AssetLib.
-3. Install the dependencies for the addons. Overwrite the original files with the modified files in the `addons/` folder.
-4. Restart the Godot Editor. You are ready to go!
+1. Clone this repository and install an official **Godot 4.7.x** build.
+2. Download the [Terrain3D 1.0.2 release](https://github.com/TokisanGames/Terrain3D/releases/tag/v1.0.2-stable).
+3. Copy the release's `addons/terrain_3d/bin/` directory into the existing `addons/terrain_3d/` directory. Do not replace the project-specific add-on files.
+4. Open `project.godot`, wait for the initial import to finish, and restart the editor once.
 
 ---
 
