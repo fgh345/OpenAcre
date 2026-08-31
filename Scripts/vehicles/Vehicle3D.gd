@@ -252,7 +252,7 @@ func interact(player: Node3D) -> void:
 		enter_vehicle(player)
 
 func get_interaction_prompt() -> String:
-	return "Drive Vehicle [%s]" % GameInput.get_action_binding_text(GameInput.ACTION_INTERACT)
+	return "驾驶车辆 [%s]" % GameInput.get_action_binding_text(GameInput.ACTION_INTERACT)
 
 ## UESS: Called by StreamSpooler when this node enters the world.
 ## Reads VehicleComponent data to initialize physical state.
@@ -383,28 +383,37 @@ func _get_current_hints() -> Array[String]:
 	if active_socket == null:
 		return hints
 
-	var socket_name := str(active_socket.name).replace("_", " ")
-	hints.append("--- Active: %s ---" % socket_name)
+	var socket_name := _get_socket_display_name(active_socket)
+	hints.append("--- 当前挂接点：%s ---" % socket_name)
 
 	if _available_sockets.size() > 1:
-		hints.append("[%s] Cycle Implement" % GameInput.get_action_binding_text(GameInput.ACTION_CYCLE_IMPLEMENT))
+		hints.append("[%s] 切换挂接点" % GameInput.get_action_binding_text(GameInput.ACTION_CYCLE_IMPLEMENT))
 
 	if not active_socket.has_attached_implement():
 		var candidate: Implement3D = active_socket.find_attach_candidate(hitch_detection_radius_fallback)
 		if candidate != null:
-			hints.append("[%s] Attach Implement" % GameInput.get_action_binding_text(GameInput.ACTION_ATTACH_IMPLEMENT))
+			hints.append("[%s] 挂接农具" % GameInput.get_action_binding_text(GameInput.ACTION_ATTACH_IMPLEMENT))
 	else:
-		hints.append("[%s] Detach Implement" % GameInput.get_action_binding_text(GameInput.ACTION_ATTACH_IMPLEMENT))
+		hints.append("[%s] 脱开农具" % GameInput.get_action_binding_text(GameInput.ACTION_ATTACH_IMPLEMENT))
 		
 		var imp: Implement3D = active_socket.get_attached_implement()
 		var is_lowered: bool = imp.is_currently_lowered() if (imp and imp.has_method("is_currently_lowered")) else false
-		var lower_text: String = "Raise" if is_lowered else "Lower"
-		hints.append("[%s] %s Implement" % [GameInput.get_action_binding_text(GameInput.ACTION_LOWER_IMPLEMENT), lower_text])
+		var lower_text: String = "升起" if is_lowered else "降下"
+		hints.append("[%s] %s农具" % [GameInput.get_action_binding_text(GameInput.ACTION_LOWER_IMPLEMENT), lower_text])
 		
 		var is_pto: bool = imp.is_active if (imp and "is_active" in imp) else false
-		var pto_text: String = "Turn Off PTO" if is_pto else "Turn On PTO"
+		var pto_text: String = "关闭 PTO" if is_pto else "开启 PTO"
 		hints.append("[%s] %s" % [GameInput.get_action_binding_text(GameInput.ACTION_TOGGLE_IMPLEMENT), pto_text])
 	return hints
+
+func _get_socket_display_name(socket: HitchSocket3D) -> String:
+	match str(socket.name):
+		"RearHitch":
+			return "后悬挂"
+		"DrawbarHitch":
+			return "牵引杆"
+		_:
+			return str(socket.name).replace("_", " ")
 
 func _update_hints() -> void:
 	if is_driven:

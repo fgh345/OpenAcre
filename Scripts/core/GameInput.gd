@@ -130,14 +130,14 @@ static func get_action_binding_text(action_name: StringName) -> String:
 	if event is InputEventMouseButton:
 		match event.button_index:
 			MOUSE_BUTTON_WHEEL_UP:
-				return "Mouse Wheel Up"
+				return "鼠标滚轮向上"
 			MOUSE_BUTTON_WHEEL_DOWN:
-				return "Mouse Wheel Down"
+				return "鼠标滚轮向下"
 			MOUSE_BUTTON_LEFT:
-				return "Mouse Left"
+				return "鼠标左键"
 			MOUSE_BUTTON_RIGHT:
-				return "Mouse Right"
+				return "鼠标右键"
 			_:
-				return "Mouse Button %d" % event.button_index
+				return "鼠标按键 %d" % event.button_index
 
 	return event.as_text()

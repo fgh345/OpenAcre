@@ -103,7 +103,7 @@ func _update_pause_metadata_preview() -> void:
 	var slot_index := int(round(slot_spinbox.value))
 	var metadata: Dictionary = SaveManager.get_slot_metadata(slot_index)
 	if metadata.is_empty():
-		slot_meta_label.text = "Slot %02d: Empty" % slot_index
+		slot_meta_label.text = "槽位 %02d：空" % slot_index
 		return
 
 	var saved_unix := int(metadata.get("saved_unix", 0))
@@ -113,7 +113,7 @@ func _update_pause_metadata_preview() -> void:
 	var day: int = int(time_data.get("day", 1))
 	var hour: int = int(time_data.get("hour", 0))
 	var minute: int = int(time_data.get("minute", 0))
-	slot_meta_label.text = "Slot %02d: %04d-%02d-%02d %02d:%02d | map=%s | Day %d %02d:%02d" % [
+	slot_meta_label.text = "槽位 %02d：%04d-%02d-%02d %02d:%02d | 地图=%s | 第 %d 天 %02d:%02d" % [
 		slot_index,
 		int(dt.get("year", 0)),
 		int(dt.get("month", 0)),
@@ -138,28 +138,28 @@ func _on_save_pressed() -> void:
 		return
 	var slot_index := int(round(slot_spinbox.value))
 	_set_menu_busy(true)
-	_update_pause_status("Saving slot %02d..." % slot_index, false)
+	_update_pause_status("正在保存槽位 %02d……" % slot_index, false)
 	var ok := SaveManager.save_slot(slot_index)
 	_set_menu_busy(false)
 	if ok:
 		_update_pause_metadata_preview()
-		_update_pause_status("Save completed for slot %02d." % slot_index, false)
+		_update_pause_status("槽位 %02d 保存完成。" % slot_index, false)
 	else:
-		_update_pause_status("Save failed for slot %02d. Check logs." % slot_index, true)
+		_update_pause_status("槽位 %02d 保存失败，请检查日志。" % slot_index, true)
 
 func _on_load_pressed() -> void:
 	if _menu_busy:
 		return
 	var slot_index := int(round(slot_spinbox.value))
 	_set_menu_busy(true)
-	_update_pause_status("Loading slot %02d..." % slot_index, false)
+	_update_pause_status("正在读取槽位 %02d……" % slot_index, false)
 	var ok := await SaveManager.load_slot(slot_index)
 	_set_menu_busy(false)
 	if ok:
-		_update_pause_status("Load completed for slot %02d." % slot_index, false)
+		_update_pause_status("槽位 %02d 读取完成。" % slot_index, false)
 		_close_pause_menu()
 	else:
-		_update_pause_status("Load failed for slot %02d. Check logs." % slot_index, true)
+		_update_pause_status("槽位 %02d 读取失败，请检查日志。" % slot_index, true)
 		_update_pause_metadata_preview()
 
 func _on_resume_pressed() -> void:

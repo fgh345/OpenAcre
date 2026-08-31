@@ -8,6 +8,6 @@ func _ready() -> void:
 
 func _on_player_tool_equipped(tool_name: String) -> void:
 	if tool_name.is_empty():
-		tool_label.text = "Equipped: None"
+		tool_label.text = "已装备：无"
 	else:
-		tool_label.text = "Equipped: " + tool_name
+		tool_label.text = "已装备：" + tool_name

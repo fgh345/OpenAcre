@@ -36,7 +36,7 @@ func sync_physics_mass() -> void:
 
 func interact(player: Node3D) -> void:
 	if not entity_data: return
-	GameLog.info("[InteractableItem3D] Interaction triggered on %s" % name)
+	GameLog.info("[交互物品] 已触发与 %s 的交互" % name)
 	var player_id: StringName = _resolve_player_id(player)
 	var player_data := GameManager.session.entities.get_player(player_id)
 	
@@ -50,10 +50,10 @@ func interact(player: Node3D) -> void:
 	var absorbed: int = player_data.pockets.try_add_entity(entity_data.runtime_id)
 	
 	if absorbed <= 0:
-		GameLog.warn("[Interaction] Pockets full! Cannot pick up %s" % entity_data.definition_id)
+		GameLog.warn("[交互] 口袋已满，无法拾取 %s" % entity_data.definition_id)
 		return
 	
-	GameLog.info("[Interaction] Picked up %s x%d" % [entity_data.definition_id, absorbed])
+	GameLog.info("[交互] 已拾取 %s ×%d" % [entity_data.definition_id, absorbed])
 	
 	if absorbed >= total_before:
 		# Fully picked up
@@ -93,7 +93,7 @@ func _resolve_player_id(player: Node3D) -> StringName:
 	return player_id
 
 func get_interaction_prompt() -> String:
-	var item_name: String = str(entity_data.definition_id) if entity_data else "Item"
+	var item_name: String = _get_display_item_name()
 	var stack_count: int = 1
 	if entity_data and entity_data.has_component(&"stackable"):
 		var stk: Variant = entity_data.get_component(&"stackable")
@@ -101,5 +101,14 @@ func get_interaction_prompt() -> String:
 			stack_count = stk.count
 		
 	if stack_count > 1:
-		return "Pick Up %s (x%d) [%s]" % [item_name, stack_count, GameInput.get_action_binding_text(GameInput.ACTION_INTERACT)]
-	return "Pick Up %s [%s]" % [item_name, GameInput.get_action_binding_text(GameInput.ACTION_INTERACT)]
+		return "拾取%s（×%d）[%s]" % [item_name, stack_count, GameInput.get_action_binding_text(GameInput.ACTION_INTERACT)]
+	return "拾取%s [%s]" % [item_name, GameInput.get_action_binding_text(GameInput.ACTION_INTERACT)]
+
+func _get_display_item_name() -> String:
+	if entity_data == null:
+		return "物品"
+	match str(entity_data.definition_id):
+		"item.apple", "item.test_apple":
+			return "苹果"
+		_:
+			return str(entity_data.definition_id)

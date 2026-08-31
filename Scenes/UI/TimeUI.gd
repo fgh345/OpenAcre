@@ -17,4 +17,4 @@ func _on_time_changed_args(_a: int, _b: int, _c: bool) -> void:
 func _update_time() -> void:
 	if GameManager.session != null and GameManager.session.time != null:
 		var tm: TimeManager = GameManager.session.time
-		time_label.text = "Day %d - %02d:%02d" % [tm.current_day, tm.current_hour, tm.current_minute]
+		time_label.text = "第 %d 天 - %02d:%02d" % [tm.current_day, tm.current_hour, tm.current_minute]

@@ -21,8 +21,8 @@ func consume(player: Node3D) -> void:
 	if nutrition_value > 0.0:
 		player_data.calories = min(player_data.calories + nutrition_value, player_data.max_calories)
 	
-	var def_name: String = str(entity_data.definition_id) if entity_data else "Item"
-	GameLog.info("[Interaction] Player consumed %s! Restored %.1f calories." % [def_name, nutrition_value])
+	var def_name: String = _get_display_item_name()
+	GameLog.info("[交互] 玩家吃掉了%s，恢复 %.1f 卡路里。" % [def_name, nutrition_value])
 	
 	if entity_data:
 		var stk_comp := entity_data.get_component(&"stackable") as StackableComponent
@@ -38,6 +38,6 @@ func consume(player: Node3D) -> void:
 		_release_world_view()
 
 func get_interaction_prompt() -> String:
-	var def_name: String = str(entity_data.definition_id) if entity_data else "Item"
+	var def_name: String = _get_display_item_name()
 	var interact_key: String = GameInput.get_action_binding_text(GameInput.ACTION_INTERACT)
-	return "Eat %s [%s] / Pick Up [Shift+%s]" % [def_name, interact_key, interact_key]
+	return "吃掉%s [%s] / 按 Shift+%s 拾取" % [def_name, interact_key, interact_key]

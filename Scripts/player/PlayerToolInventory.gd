@@ -25,5 +25,5 @@ func get_active_tool() -> Tool:
 func get_active_tool_name() -> String:
 	var tool := get_active_tool()
 	if tool == null:
-		return "None"
+		return "无"
 	return tool.tool_name

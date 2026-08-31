@@ -55,7 +55,7 @@ layout_mode = 2
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 4
 theme_override_font_sizes/font_size = 24
-text = "[E] Interact"
+text = "[E] 交互"
 horizontal_alignment = 2
 vertical_alignment = 2
 
@@ -116,7 +116,7 @@ theme_override_constants/separation = 10
 [node name="Title" type="Label" parent="PauseOverlay/CenterContainer/PausePanel/Margin/VBox"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
-text = "Paused"
+text = "游戏暂停"
 horizontal_alignment = 1
 
 [node name="SlotRow" type="HBoxContainer" parent="PauseOverlay/CenterContainer/PausePanel/Margin/VBox"]
@@ -125,7 +125,7 @@ theme_override_constants/separation = 8
 
 [node name="SlotLabel" type="Label" parent="PauseOverlay/CenterContainer/PausePanel/Margin/VBox/SlotRow"]
 layout_mode = 2
-text = "Save Slot"
+text = "存档槽位"
 
 [node name="SlotSpinBox" type="SpinBox" parent="PauseOverlay/CenterContainer/PausePanel/Margin/VBox/SlotRow"]
 unique_name_in_owner = true
@@ -141,7 +141,7 @@ rounded = true
 unique_name_in_owner = true
 layout_mode = 2
 autowrap_mode = 3
-text = "Slot 01: Empty"
+text = "槽位 01：空"
 
 [node name="Separator" type="HSeparator" parent="PauseOverlay/CenterContainer/PausePanel/Margin/VBox"]
 layout_mode = 2
@@ -149,17 +149,17 @@ layout_mode = 2
 [node name="SaveButton" type="Button" parent="PauseOverlay/CenterContainer/PausePanel/Margin/VBox"]
 unique_name_in_owner = true
 layout_mode = 2
-text = "Save Game"
+text = "保存游戏"
 
 [node name="LoadButton" type="Button" parent="PauseOverlay/CenterContainer/PausePanel/Margin/VBox"]
 unique_name_in_owner = true
 layout_mode = 2
-text = "Load Game"
+text = "读取游戏"
 
 [node name="ResumeButton" type="Button" parent="PauseOverlay/CenterContainer/PausePanel/Margin/VBox"]
 unique_name_in_owner = true
 layout_mode = 2
-text = "Resume"
+text = "继续游戏"
 
 [node name="PauseStatusLabel" type="Label" parent="PauseOverlay/CenterContainer/PausePanel/Margin/VBox"]
 unique_name_in_owner = true

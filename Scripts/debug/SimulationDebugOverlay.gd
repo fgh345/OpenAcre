@@ -68,12 +68,12 @@ func _refresh_text() -> void:
 		_bind_grid_manager()
 
 	# Player position for debugging teleport issues
-	var player_pos_line := "Player  pos=(?, ?, ?)"
+	var player_pos_line := "玩家  位置=(?, ?, ?)"
 	if _grid_manager != null and _grid_manager.has_method("get_stream_target_position"):
 		var pos: Vector3 = _grid_manager.get_stream_target_position()
-		player_pos_line = "Player  pos=(%.1f, %.1f, %.1f)" % [pos.x, pos.y, pos.z]
+		player_pos_line = "玩家  位置=(%.1f, %.1f, %.1f)" % [pos.x, pos.y, pos.z]
 
-	var farm_line := "Tiles  total=%d  seeded=%d" % [
+	var farm_line := "地块  总数=%d  已播种=%d" % [
 		GameManager.session.farm.get_total_tile_count(),
 		GameManager.session.farm.get_seeded_tile_count()
 	]
@@ -93,11 +93,11 @@ func _refresh_text() -> void:
 		if _grid_manager.has_method("is_chunk_grid_visible"):
 			chunk_grid_on = _grid_manager.is_chunk_grid_visible()
 	var total_data := GameManager.session.farm.get_total_chunk_count()
-	var chunk_line := "Chunks  loaded=%d / total=%d  (@ %d,%d  r=%d)  (Grid: %s)" % [
-		loaded_visual, total_data, center.x, center.y, radius, "ON" if chunk_grid_on else "OFF"
+	var chunk_line := "区块  已加载=%d / 总数=%d  (@ %d,%d  半径=%d)  (网格：%s)" % [
+		loaded_visual, total_data, center.x, center.y, radius, "开启" if chunk_grid_on else "关闭"
 	]
 
-	var ray_line := "Raycast  [None]"
+	var ray_line := "射线检测  [无]"
 	var camera := get_viewport().get_camera_3d()
 	if camera != null:
 		var center_screen := camera.get_viewport().get_visible_rect().size * 0.5
@@ -110,21 +110,21 @@ func _refresh_text() -> void:
 			if not hit.is_empty():
 				var collider: Variant = hit.get("collider")
 				if collider != null and collider is Node:
-					ray_line = "Raycast  hit=%s  pos=(%.1f, %.1f, %.1f)" % [collider.name, hit.position.x, hit.position.y, hit.position.z]
+					ray_line = "射线检测  命中=%s  位置=(%.1f, %.1f, %.1f)" % [collider.name, hit.position.x, hit.position.y, hit.position.z]
 					if collider.has_method("get_interaction_prompt"):
-						ray_line += "  [Interactable]"
+						ray_line += "  [可交互]"
 
 	# Inventory & Weight
-	var inv_line := "Pockets [None]"
+	var inv_line := "口袋 [无]"
 	var player_data := GameManager.session.entities.get_player()
 	if player_data != null:
 		var curr_v: float = player_data.pockets.get_total_volume()
 		var max_v: float = player_data.pockets.max_volume
 		var curr_m: float = player_data.get_total_encumbrance_mass()
-		inv_line = "Pockets  vol=%.1f/%.1f L  mass=%.1f kg" % [curr_v, max_v, curr_m]
+		inv_line = "口袋  体积=%.1f/%.1f 升  重量=%.1f 千克" % [curr_v, max_v, curr_m]
 
 	# Vehicle Context
-	var veh_line := "Vehicle [None]"
+	var veh_line := "车辆 [无]"
 	var active_veh_id := player_data.active_vehicle_id if player_data else &""
 	if active_veh_id != &"":
 		var v_data: EntityData = GameManager.session.entities.get_entity(active_veh_id)
@@ -137,11 +137,11 @@ func _refresh_text() -> void:
 				if container.inventory.has("fuel"):
 					var f_slot: Variant = container.inventory["fuel"]
 					if f_slot is Dictionary:
-						tank_info += " fuel: %.1f/%.1f L" % [float(f_slot.get("quantity", 0.0)), float(container.max_volume)]
-			veh_line = "Vehicle  id=%s  cargo_mass=%.0f kg %s" % [active_veh_id, total_mass, tank_info]
+						tank_info += " 燃油：%.1f/%.1f 升" % [float(f_slot.get("quantity", 0.0)), float(container.max_volume)]
+			veh_line = "车辆  ID=%s  货物重量=%.0f 千克 %s" % [active_veh_id, total_mass, tank_info]
 
-	var controls_line := "Toggle  %s" % GameInput.get_action_binding_text(GameInput.ACTION_TOGGLE_DEBUG)
-	_label.text = "SIM DEBUG\n\n%s\n%s\n%s\n%s\n%s\n%s\n\n%s" % [
+	var controls_line := "显示/隐藏  %s" % GameInput.get_action_binding_text(GameInput.ACTION_TOGGLE_DEBUG)
+	_label.text = "模拟调试\n\n%s\n%s\n%s\n%s\n%s\n%s\n\n%s" % [
 		player_pos_line,
 		farm_line,
 		chunk_line,

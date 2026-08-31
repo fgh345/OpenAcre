@@ -39,7 +39,7 @@ func _ready() -> void:
 	_build_spawn_registry()
 	_register_all_commands()
 	_set_console_visible(start_open)
-	_print_line("Developer console ready. Type 'help'.")
+	_print_line("开发者控制台已就绪，输入 'help' 查看帮助。")
 
 	# Subscribe to the centralized game log
 	EventBus.log_message.connect(Callable(self , "_on_game_log_message"))
@@ -50,7 +50,7 @@ func _ready() -> void:
 func _run_auto_commands_deferred() -> void:
 	await get_tree().create_timer(0.2).timeout
 	for cmd in auto_run_commands:
-		_print_line("[color=gray][Auto-run] > %s[/color]" % cmd)
+		_print_line("[color=gray][自动执行] > %s[/color]" % cmd)
 		_execute_command(cmd)
 
 func _on_game_log_message(text: String, level: int) -> void:
@@ -64,23 +64,23 @@ func _on_game_log_message(text: String, level: int) -> void:
 			_print_line(text)
 
 func _register_all_commands() -> void:
-	_register_command("help", "Show this help message", "help", "_cmd_help")
-	_register_command("clear", "Clear the console output", "clear", "_cmd_clear")
-	_register_command("copy", "Copy log to clipboard", "copy", "_cmd_copy")
-	_register_command("time", "Manage time (e.g. time now, time set)", "time now | time set <d> <h> <m>", "_cmd_time")
-	_register_command("fastforward", "Fast forward time (e.g. ff 6h, ff 2d)", "ff <value>[m|h|d]", "_cmd_fast_forward", ["ff"])
-	_register_command("spawn", "Spawn a vehicle or alias", "spawn list | spawn <brand|alias|spec> [count]", "_cmd_spawn", ["s"])
-	_register_command("spawn_scene", "Spawn a specific .tscn file directly", "spawn_scene <res://...tscn> [count]", "_cmd_spawn_scene")
-	_register_command("sim", "Manage simulation (e.g. catchup)", "sim catchup <seconds>", "_cmd_sim")
-	_register_command("chunks", "Toggle chunk grid overlay or show chunks info", "chunks | chunks info", "_cmd_chunks")
-	_register_command("farmable", "Toggle farmable grid overlay", "farmable", "_cmd_farmable")
-	_register_command("godmode", "Toggle player noclip free-fly mode", "godmode", "_cmd_godmode", ["fly"])
-	_register_command("inventory", "List all items currently in player pockets", "inv", "_cmd_inventory", ["inv"])
-	_register_command("keybinds", "List all game keybinds", "keybinds", "_cmd_keybinds")
-	_register_command("save", "Save to slot", "save [slot]", "_cmd_save")
-	_register_command("load", "Load from slot", "load [slot]", "_cmd_load")
-	_register_command("saves", "List save slot metadata", "saves [max_slots]", "_cmd_saves")
-	_register_command("st", "Spawn tractor and plow in position", "spawntest [vehicle_spec] [plow_alias]", "_cmd_spawn_test")
+	_register_command("help", "显示帮助信息", "help", "_cmd_help")
+	_register_command("clear", "清空控制台输出", "clear", "_cmd_clear")
+	_register_command("copy", "复制日志到剪贴板", "copy", "_cmd_copy")
+	_register_command("time", "管理时间（如 time now、time set）", "time now | time set <d> <h> <m>", "_cmd_time")
+	_register_command("fastforward", "快进时间（如 ff 6h、ff 2d）", "ff <value>[m|h|d]", "_cmd_fast_forward", ["ff"])
+	_register_command("spawn", "生成车辆或实体", "spawn list | spawn <brand|alias|spec> [count]", "_cmd_spawn", ["s"])
+	_register_command("spawn_scene", "直接生成指定 .tscn 场景", "spawn_scene <res://...tscn> [count]", "_cmd_spawn_scene")
+	_register_command("sim", "管理模拟（如 catchup）", "sim catchup <seconds>", "_cmd_sim")
+	_register_command("chunks", "切换区块网格或查看区块信息", "chunks | chunks info", "_cmd_chunks")
+	_register_command("farmable", "切换可耕作区域网格", "farmable", "_cmd_farmable")
+	_register_command("godmode", "切换玩家飞行/穿墙模式", "godmode", "_cmd_godmode", ["fly"])
+	_register_command("inventory", "列出玩家口袋中的物品", "inv", "_cmd_inventory", ["inv"])
+	_register_command("keybinds", "列出所有按键绑定", "keybinds", "_cmd_keybinds")
+	_register_command("save", "保存到槽位", "save [slot]", "_cmd_save")
+	_register_command("load", "读取槽位", "load [slot]", "_cmd_load")
+	_register_command("saves", "列出存档槽位信息", "saves [max_slots]", "_cmd_saves")
+	_register_command("st", "生成拖拉机和犁具测试组合", "spawntest [vehicle_spec] [plow_alias]", "_cmd_spawn_test")
 
 func _register_command(cmd_name: String, desc: String, usage: String, method: String, aliases: Array[String] = []) -> void:
 	var cmd := CommandDef.new(cmd_name, desc, usage, method, aliases)
@@ -137,7 +137,7 @@ func _build_ui() -> void:
 	_panel.add_child(root)
 
 	var title := Label.new()
-	title.text = "Developer Console"
+	title.text = "开发者控制台"
 	root.add_child(title)
 
 	_log = RichTextLabel.new()
@@ -151,7 +151,7 @@ func _build_ui() -> void:
 	root.add_child(_log)
 
 	_input_line = LineEdit.new()
-	_input_line.placeholder_text = "Enter command (help, ff 6h, spawn apple 5, copy)"
+	_input_line.placeholder_text = "输入命令（help、ff 6h、spawn apple 5、copy）"
 	_input_line.text_submitted.connect(_on_command_submitted)
 	root.add_child(_input_line)
 
@@ -193,11 +193,11 @@ func _execute_command(command: String) -> void:
 		var cmd: CommandDef = _command_map[verb]
 		call(cmd.method, parts)
 	else:
-		_print_line("Unknown command: %s" % verb)
+		_print_line("未知命令：%s" % verb)
 
 func _cmd_help(_parts: Array[String] = []) -> void:
 	_print_line("[color=white]========================================[/color]")
-	_print_line("[color=cyan]DEVELOPER CONSOLE COMMANDS[/color]")
+	_print_line("[color=cyan]开发者控制台命令[/color]")
 	_print_line("[color=white]========================================[/color]")
 	for cmd: CommandDef in _commands:
 		var name_str := cmd.cmd_name
@@ -211,7 +211,7 @@ func _cmd_help(_parts: Array[String] = []) -> void:
 		
 		_print_line("[color=yellow]%s[/color]%s- %s" % [name_str, padding, cmd.description])
 		if cmd.usage != cmd.cmd_name:
-			_print_line("  [color=gray]Usage: %s[/color]" % cmd.usage)
+			_print_line("  [color=gray]用法：%s[/color]" % cmd.usage)
 	_print_line("[color=white]========================================[/color]")
 
 func _cmd_clear(_parts: Array[String] = []) -> void:
@@ -223,45 +223,45 @@ func _cmd_copy(_parts: Array[String] = []) -> void:
 		return
 	var text := _log.get_parsed_text()
 	DisplayServer.clipboard_set(text)
-	_print_line("[Copied %d characters to clipboard]" % text.length())
+	_print_line("[已复制 %d 个字符到剪贴板]" % text.length())
 
 func _cmd_time(parts: Array[String]) -> void:
 	if parts.size() < 2:
-		_print_line("Usage: time now | time set <day> <hour> <minute>")
+		_print_line("用法：time now | time set <day> <hour> <minute>")
 		return
 
 	var sub := parts[1].to_lower()
 	if sub == "now":
-		_print_line("Day %d %02d:%02d" % [GameManager.session.time.current_day, GameManager.session.time.current_hour, GameManager.session.time.current_minute])
+		_print_line("第 %d 天 %02d:%02d" % [GameManager.session.time.current_day, GameManager.session.time.current_hour, GameManager.session.time.current_minute])
 		return
 
 	if sub == "set":
 		if parts.size() < 5:
-			_print_line("Usage: time set <day> <hour> <minute>")
+			_print_line("用法：time set <day> <hour> <minute>")
 			return
 		var day := int(parts[2])
 		var hour := int(parts[3])
 		var minute := int(parts[4])
 		GameManager.session.time.set_time(day, hour, minute)
 		GameManager.session.farm.simulate_passage_of_time(0)
-		_print_line("Time set to Day %d %02d:%02d" % [GameManager.session.time.current_day, GameManager.session.time.current_hour, GameManager.session.time.current_minute])
+		_print_line("时间已设置为第 %d 天 %02d:%02d" % [GameManager.session.time.current_day, GameManager.session.time.current_hour, GameManager.session.time.current_minute])
 		return
 
-	_print_line("Usage: time now | time set <day> <hour> <minute>")
+	_print_line("用法：time now | time set <day> <hour> <minute>")
 
 func _cmd_fast_forward(parts: Array[String]) -> void:
 	if parts.size() < 2:
-		_print_line("Usage: ff <value>[m|h|d]")
+		_print_line("用法：ff <value>[m|h|d]")
 		return
 
 	var minutes := _parse_duration_to_minutes(parts[1])
 	if minutes <= 0:
-		_print_line("Invalid duration. Use formats like 30m, 6h, 2d")
+		_print_line("无效的时长，请使用 30m、6h、2d 等格式")
 		return
 
 	var result: Dictionary = GameManager.session.time.fast_forward_minutes(minutes, false)
 	GameManager.session.farm.simulate_passage_of_time(minutes * 60, true)
-	_print_line("Fast-forwarded %d minutes. Now Day %d %02d:%02d" % [
+	_print_line("已快进 %d 分钟，当前为第 %d 天 %02d:%02d" % [
 		int(result.get("advanced_minutes", 0)),
 		GameManager.session.time.current_day,
 		GameManager.session.time.current_hour,
@@ -270,19 +270,19 @@ func _cmd_fast_forward(parts: Array[String]) -> void:
 
 func _cmd_spawn(parts: Array[String]) -> void:
 	if parts.size() < 2:
-		_print_line("Usage: spawn list | spawn <vehicleBrand|alias> [count]")
+		_print_line("用法：spawn list | spawn <vehicleBrand|alias> [count]")
 		return
 
 	if parts[1].to_lower() == "list":
 		var aliases := _spawn_registry.keys()
 		aliases.sort()
-		_print_line("Scene aliases: " + ", ".join(aliases))
+		_print_line("场景别名：" + ", ".join(aliases))
 		
 		var specs: Array[String] = []
 		for key: Variant in EntityRegistry._definitions.keys():
 			specs.append(String(key))
 		specs.sort()
-		_print_line("Entity Registry (UESS): " + ", ".join(specs))
+		_print_line("实体注册表（UESS）：" + ", ".join(specs))
 		return
 
 	var alias := parts[1].to_lower()
@@ -294,7 +294,7 @@ func _cmd_spawn(parts: Array[String]) -> void:
 		return
 
 	if not _spawn_registry.has(alias):
-		_print_line("Unknown spawn brand/alias: %s" % alias)
+		_print_line("未知的生成别名：%s" % alias)
 		return
 
 	_spawn_by_scene_path(String(_spawn_registry[alias]), count)
@@ -311,7 +311,7 @@ func _cmd_spawn_test(parts: Array[String]) -> void:
 	var yaw: float = player.rotation.y if player != null else 0.0
 	var forward: Vector3 = - player.global_basis.z.normalized() if player != null else Vector3.FORWARD
 	
-	_print_line("Setting up test rig: Vehicle=%s, Implement=%s" % [vehicle_id_to_spawn, implement_id_to_spawn])
+	_print_line("正在创建测试组合：车辆=%s，农具=%s" % [vehicle_id_to_spawn, implement_id_to_spawn])
 	
 	# Spawn Tractor far away (facing same way)
 	var tractor_pos: Vector3 = origin + forward * 6.0
@@ -324,7 +324,7 @@ func _cmd_spawn_test(parts: Array[String]) -> void:
 func _spawn_vehicle(alias: String, pos: Vector3, yaw: float) -> void:
 	var def_id: StringName = _resolve_entity_def_id(alias)
 	if def_id == &"":
-		_print_line("EntityRegistry: Unknown definition/alias: " + alias)
+		_print_line("实体注册表：未知的定义/别名：" + alias)
 		return
 		
 	var entity: EntityData = EntityRegistry.create_entity(def_id)
@@ -334,11 +334,11 @@ func _spawn_vehicle(alias: String, pos: Vector3, yaw: float) -> void:
 			tf.world_position = pos
 			tf.world_rotation_radians = yaw
 		GameManager.session.entities.register_entity(entity)
-		_print_line("Spawned UESS Entity: " + String(def_id))
+		_print_line("已生成 UESS 实体：" + String(def_id))
 
 func _spawn_by_alias(alias: String, pos: Vector3, yaw: float) -> void:
 	if not _spawn_registry.has(alias.to_lower()):
-		_print_line("Unknown implement alias: " + alias)
+		_print_line("未知的农具别名：" + alias)
 		return
 	var scene_path: String = _spawn_registry[alias.to_lower()]
 	var packed := load(scene_path)
@@ -348,11 +348,11 @@ func _spawn_by_alias(alias: String, pos: Vector3, yaw: float) -> void:
 			instance.position = pos
 			instance.rotation.y = yaw
 		get_tree().current_scene.add_child(instance)
-		_print_line("Spawned implement: " + scene_path)
+		_print_line("已生成农具：" + scene_path)
 
 func _cmd_spawn_scene(parts: Array[String]) -> void:
 	if parts.size() < 2:
-		_print_line("Usage: spawn_scene <res://...tscn> [count]")
+		_print_line("用法：spawn_scene <res://...tscn> [count]")
 		return
 
 	var scene_path := parts[1]
@@ -364,16 +364,16 @@ func _cmd_spawn_scene(parts: Array[String]) -> void:
 
 func _cmd_sim(parts: Array[String]) -> void:
 	if parts.size() < 3:
-		_print_line("Usage: sim catchup <seconds>")
+		_print_line("用法：sim catchup <seconds>")
 		return
 
 	if parts[1].to_lower() != "catchup":
-		_print_line("Usage: sim catchup <seconds>")
+		_print_line("用法：sim catchup <seconds>")
 		return
 
 	var seconds := maxi(0, int(parts[2]))
 	GameManager.session.farm.simulate_passage_of_time(seconds, true)
-	_print_line("Applied simulation catch-up for %d seconds." % seconds)
+	_print_line("已执行 %d 秒的模拟追赶。" % seconds)
 
 func _cmd_chunks(parts: Array[String]) -> void:
 	if parts.size() >= 2 and parts[1].to_lower() == "info":
@@ -382,40 +382,40 @@ func _cmd_chunks(parts: Array[String]) -> void:
 
 	var grid_mgr := _get_grid_manager()
 	if grid_mgr == null or not grid_mgr.has_method("toggle_chunk_grid"):
-		_print_line("Chunk grid not available (GridManager not found).")
+		_print_line("区块网格不可用（未找到 GridManager）。")
 		return
 
 	var now_visible: bool = grid_mgr.toggle_chunk_grid()
-	_print_line("Chunk grid overlay: %s" % ("ON" if now_visible else "OFF"))
+	_print_line("区块网格：%s" % ("开启" if now_visible else "关闭"))
 
 func _cmd_farmable(_parts: Array[String]) -> void:
 	var grid_mgr := _get_grid_manager()
 	if grid_mgr == null or not grid_mgr.has_method("toggle_farmable_grid"):
-		_print_line("GridManager not found or doesn't support farmable grid.")
+		_print_line("未找到 GridManager，或它不支持可耕作区域网格。")
 		return
 	var now_visible: bool = grid_mgr.toggle_farmable_grid()
-	_print_line("Farmable grid overlay: %s" % ("ON" if now_visible else "OFF"))
+	_print_line("可耕作区域网格：%s" % ("开启" if now_visible else "关闭"))
 
 func _cmd_godmode(_parts: Array[String]) -> void:
 	var player := get_tree().get_first_node_in_group("player")
 	if player == null or not player.has_method("toggle_godmode"):
-		_print_line("Player not found or missing godmode method.")
+		_print_line("未找到玩家，或玩家不支持飞行模式。")
 		return
 	var is_enabled: bool = player.toggle_godmode()
-	_print_line("Godmode (Noclip Fly): %s" % ("ON" if is_enabled else "OFF"))
+	_print_line("飞行/穿墙模式：%s" % ("开启" if is_enabled else "关闭"))
 
 func _cmd_inventory(_parts: Array[String] = []) -> void:
 	var player_data := GameManager.session.entities.get_player(&"player.main")
 	if not player_data:
-		_print_line("Player data not found.")
+		_print_line("未找到玩家数据。")
 		return
 		
 	var pockets: InventoryData = player_data.pockets
 	if pockets.entity_ids.is_empty():
-		_print_line("Inventory is empty.")
+		_print_line("库存为空。")
 		return
 		
-	_print_line("--- Player Inventory ---")
+	_print_line("--- 玩家库存 ---")
 	var em := GameManager.session.entities as EntityManager
 	for i in range(pockets.entity_ids.size()):
 		var eid: StringName = pockets.entity_ids[i]
@@ -431,26 +431,26 @@ func _cmd_inventory(_parts: Array[String] = []) -> void:
 			_print_line("[%d] %s x%d  [%s]  (id: %s)" % [i, entity.definition_id, stack_count, ", ".join(comp_list), eid])
 		else:
 			_print_line("[%d] <missing entity: %s>" % [i, eid])
-	_print_line("Total Mass: %.2f / %.2f kg" % [pockets.get_current_mass(), pockets.max_mass])
-	_print_line("Total Volume: %.2f / %.2f L" % [pockets.get_total_volume(), pockets.max_volume])
+	_print_line("总重量：%.2f / %.2f 千克" % [pockets.get_current_mass(), pockets.max_mass])
+	_print_line("总体积：%.2f / %.2f 升" % [pockets.get_total_volume(), pockets.max_volume])
 
 func _cmd_keybinds(_parts: Array[String] = []) -> void:
-	_print_line("--- Keybindings ---")
-	_print_line("Interact: " + GameInput.get_action_binding_text(GameInput.ACTION_INTERACT))
-	_print_line("Toggle UI: " + GameInput.get_action_binding_text(GameInput.ACTION_TOGGLE_UI))
-	_print_line("Toggle Help: " + GameInput.get_action_binding_text(GameInput.ACTION_TOGGLE_HELP))
-	_print_line("Toggle Debug Overlay: " + GameInput.get_action_binding_text(GameInput.ACTION_TOGGLE_DEBUG))
-	_print_line("Toggle Developer Console: " + GameInput.get_action_binding_text(GameInput.ACTION_TOGGLE_CONSOLE))
-	_print_line("Camera Up: " + GameInput.get_action_binding_text(GameInput.ACTION_CAMERA_UP))
-	_print_line("Camera Down: " + GameInput.get_action_binding_text(GameInput.ACTION_CAMERA_DOWN))
-	_print_line("Camera Zoom In: " + GameInput.get_action_binding_text(GameInput.ACTION_CAMERA_ZOOM_IN))
-	_print_line("Camera Zoom Out: " + GameInput.get_action_binding_text(GameInput.ACTION_CAMERA_ZOOM_OUT))
-	_print_line("Vehicle Throttle: " + GameInput.get_action_binding_text(GameInput.ACTION_VEHICLE_THROTTLE))
-	_print_line("Vehicle Reverse: " + GameInput.get_action_binding_text(GameInput.ACTION_VEHICLE_REVERSE))
-	_print_line("Vehicle Steer Left: " + GameInput.get_action_binding_text(GameInput.ACTION_VEHICLE_STEER_LEFT))
-	_print_line("Vehicle Steer Right: " + GameInput.get_action_binding_text(GameInput.ACTION_VEHICLE_STEER_RIGHT))
-	_print_line("Vehicle Brake: " + GameInput.get_action_binding_text(GameInput.ACTION_VEHICLE_BRAKE))
-	_print_line("Pause Menu: " + GameInput.get_action_binding_text(GameInput.ACTION_TOGGLE_PAUSE_MENU))
+	_print_line("--- 按键绑定 ---")
+	_print_line("交互：" + GameInput.get_action_binding_text(GameInput.ACTION_INTERACT))
+	_print_line("显示/隐藏界面：" + GameInput.get_action_binding_text(GameInput.ACTION_TOGGLE_UI))
+	_print_line("显示/隐藏帮助：" + GameInput.get_action_binding_text(GameInput.ACTION_TOGGLE_HELP))
+	_print_line("显示/隐藏调试：" + GameInput.get_action_binding_text(GameInput.ACTION_TOGGLE_DEBUG))
+	_print_line("开发者控制台：" + GameInput.get_action_binding_text(GameInput.ACTION_TOGGLE_CONSOLE))
+	_print_line("镜头上移：" + GameInput.get_action_binding_text(GameInput.ACTION_CAMERA_UP))
+	_print_line("镜头下移：" + GameInput.get_action_binding_text(GameInput.ACTION_CAMERA_DOWN))
+	_print_line("镜头拉近：" + GameInput.get_action_binding_text(GameInput.ACTION_CAMERA_ZOOM_IN))
+	_print_line("镜头拉远：" + GameInput.get_action_binding_text(GameInput.ACTION_CAMERA_ZOOM_OUT))
+	_print_line("车辆前进：" + GameInput.get_action_binding_text(GameInput.ACTION_VEHICLE_THROTTLE))
+	_print_line("车辆倒车：" + GameInput.get_action_binding_text(GameInput.ACTION_VEHICLE_REVERSE))
+	_print_line("车辆左转：" + GameInput.get_action_binding_text(GameInput.ACTION_VEHICLE_STEER_LEFT))
+	_print_line("车辆右转：" + GameInput.get_action_binding_text(GameInput.ACTION_VEHICLE_STEER_RIGHT))
+	_print_line("车辆刹车：" + GameInput.get_action_binding_text(GameInput.ACTION_VEHICLE_BRAKE))
+	_print_line("暂停菜单：" + GameInput.get_action_binding_text(GameInput.ACTION_TOGGLE_PAUSE_MENU))
 
 func _cmd_save(parts: Array[String]) -> void:
 	var slot := 1
@@ -459,21 +459,21 @@ func _cmd_save(parts: Array[String]) -> void:
 
 	var ok := SaveManager.save_slot(slot)
 	if ok:
-		_print_line("Saved slot %02d" % slot)
+		_print_line("槽位 %02d 保存完成" % slot)
 	else:
-		_print_line("Save failed for slot %02d" % slot)
+		_print_line("槽位 %02d 保存失败" % slot)
 
 func _cmd_load(parts: Array[String]) -> void:
 	var slot := 1
 	if parts.size() >= 2:
 		slot = maxi(1, int(parts[1]))
 
-	_print_line("Loading slot %02d..." % slot)
+	_print_line("正在读取槽位 %02d……" % slot)
 	var ok := await SaveManager.load_slot(slot)
 	if ok:
-		_print_line("Loaded slot %02d" % slot)
+		_print_line("槽位 %02d 读取完成" % slot)
 	else:
-		_print_line("Load failed for slot %02d" % slot)
+		_print_line("槽位 %02d 读取失败" % slot)
 
 func _cmd_saves(parts: Array[String]) -> void:
 	var max_slots := 8
@@ -482,10 +482,10 @@ func _cmd_saves(parts: Array[String]) -> void:
 
 	var slots: Dictionary = SaveManager.list_slot_metadata(max_slots)
 	if slots.is_empty():
-		_print_line("No save metadata found in first %d slots." % max_slots)
+		_print_line("前 %d 个槽位中没有找到存档信息。" % max_slots)
 		return
 
-	_print_line("--- Save Slots ---")
+	_print_line("--- 存档槽位 ---")
 	var keys: Array = slots.keys()
 	keys.sort()
 	for key_any: Variant in keys:
@@ -496,7 +496,7 @@ func _cmd_saves(parts: Array[String]) -> void:
 		var map_name := str(metadata.get("map", "unknown"))
 		var time_data: Dictionary = metadata.get("time", {})
 		_print_line(
-			"Slot %02d -> %04d-%02d-%02d %02d:%02d | map=%s | Day %d %02d:%02d" % [
+			"槽位 %02d → %04d-%02d-%02d %02d:%02d | 地图=%s | 第 %d 天 %02d:%02d" % [
 				int(key),
 				int(dt.get("year", 0)),
 				int(dt.get("month", 0)),
@@ -525,9 +525,9 @@ func _print_chunks_info() -> void:
 	var total_data := GameManager.session.farm.get_total_chunk_count()
 	var loaded_sim := GameManager.session.farm.get_loaded_chunk_count()
 	var unloaded_sim := GameManager.session.farm.get_unloaded_chunk_count()
-	_print_line("Visual: %d chunks loaded (radius %d, center %d,%d)" % [loaded_visual, radius, center.x, center.y])
-	_print_line("FarmData: %d total data chunks | %d sim-loaded | %d sim-unloaded" % [total_data, loaded_sim, unloaded_sim])
-	_print_line("Chunk size: %d tiles" % GameManager.session.farm.simulation_chunk_size_tiles)
+	_print_line("视觉层：已加载 %d 个区块（半径 %d，中心 %d,%d）" % [loaded_visual, radius, center.x, center.y])
+	_print_line("农田数据：共 %d 个区块 | 已加载模拟 %d | 未加载模拟 %d" % [total_data, loaded_sim, unloaded_sim])
+	_print_line("区块大小：%d 个地块" % GameManager.session.farm.simulation_chunk_size_tiles)
 
 func _get_grid_manager() -> Node:
 	return get_tree().get_first_node_in_group("grid_manager")
@@ -561,12 +561,12 @@ func _parse_duration_to_minutes(token: String) -> int:
 func _spawn_by_scene_path(scene_path: String, count: int) -> void:
 	var packed := load(scene_path)
 	if not (packed is PackedScene):
-		_print_line("Failed to load PackedScene: %s" % scene_path)
+		_print_line("加载 PackedScene 失败：%s" % scene_path)
 		return
 
 	var parent := get_tree().current_scene
 	if parent == null:
-		_print_line("No active scene to spawn into.")
+		_print_line("没有可用于生成实体的活动场景。")
 		return
 
 	var origin := _get_spawn_origin()
@@ -582,9 +582,9 @@ func _spawn_by_scene_path(scene_path: String, count: int) -> void:
 		parent.add_child(instance)
 		spawned += 1
 
-	_print_line("Spawned %d x %s" % [spawned, scene_path])
+	_print_line("已生成 %d 个：%s" % [spawned, scene_path])
 	if scene_path.begins_with("res://Scenes/Vehicles/"):
-		_print_line("Warning: Scene-spawned vehicles bypass UESS streaming/despawn. Use Entity IDs like 'vehicle.truck' with spawn.")
+		_print_line("警告：通过场景直接生成的车辆不会参与 UESS 流式加载/卸载。请使用 spawn vehicle.truck 这样的实体 ID。")
 
 func _compute_spawn_position(origin: Vector3, index: int) -> Vector3:
 	if index == 0:
@@ -670,7 +670,7 @@ func _spawn_vehicle_brand(alias: String, count: int) -> bool:
 			spawned += 1
 
 	if spawned > 0:
-		_print_line("Spawned %d x UESS Entity '%s'" % [spawned, String(def_id)])
+		_print_line("已生成 %d 个 UESS 实体“%s”" % [spawned, String(def_id)])
 		return true
 
 	return false

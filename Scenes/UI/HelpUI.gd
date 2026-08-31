@@ -21,25 +21,25 @@ func _refresh_controls_text() -> void:
 	var zoom_out := GameInput.get_action_binding_text(GameInput.ACTION_CAMERA_ZOOM_OUT)
 
 	var rows: Array[String] = [
-		"CONTROLS",
+		"操作说明",
 		"",
-		"Movement",
-		"WASD        Move",
-		"Shift       Sprint",
-		"Space       Jump",
+		"移动",
+		"WASD        移动",
+		"Shift       奔跑",
+		"Space       跳跃",
 		"",
-		"Tools",
-		"1           Equip Hoe (Plow)",
-		"2           Equip Seeds (Plant)",
-		"Left Click  Use Tool",
-		"%s           Interact" % interact,
+		"工具",
+		"1           装备锄头",
+		"2           装备种子",
+		"左键        使用工具",
+		"%s           交互" % interact,
 		"",
-		"Camera",
-		"%s / %s   Up / Down" % [camera_up, camera_down],
-		"%s / %s   Zoom In / Out" % [zoom_in, zoom_out],
+		"镜头",
+		"%s / %s   上移 / 下移" % [camera_up, camera_down],
+		"%s / %s   拉近 / 拉远" % [zoom_in, zoom_out],
 		"",
-		"%s          Toggle Help" % help_toggle,
-		"%s          Toggle UI" % ui_toggle
+		"%s          显示/隐藏帮助" % help_toggle,
+		"%s          显示/隐藏界面" % ui_toggle
 	]
 
 	help_text.text = "\n".join(rows)
